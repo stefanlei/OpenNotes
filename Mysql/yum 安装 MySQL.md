@@ -11,10 +11,6 @@ set global validate_password_policy=0; # 关闭密码复杂度检查
 set global validate_password_length=4; # 设置最短密码为 4
 ```
 
-
-
-
-
 设置默认编码
 
 修改/etc/my.cnf配置文件，在[mysqld]下添加编码配置，如下所示：  
