@@ -1,6 +1,6 @@
-#### 笔记 (Python 开发)
+#### 笔记 
 
-> 学习过程中的笔记，持续更新  2018/7/8
+> 学习过程中的笔记，持续更新  2018/7/23
 
 ##### 前端
 
@@ -23,3 +23,16 @@
 - MongoDB
 - Scrapy
 - Docker
+
+##### 大数据
+
+- Hadoop 2.6.5
+- ZooKeeper
+- Yarn
+- MapReduce
+- Flume
+- Hive 1.2.1
+- HBase 0.98
+- Sqoop
+- Kafka 2.10
+
