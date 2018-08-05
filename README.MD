@@ -34,5 +34,5 @@
 - Hive 1.2.1
 - HBase 0.98
 - Sqoop
-- Kafka 0.9
+- Kafka 2.10
 
