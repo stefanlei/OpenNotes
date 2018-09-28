@@ -1,6 +1,6 @@
 #### 笔记 
 
-> 工作和学习过程中的笔记，持续更新
+> 自己整理、总结的笔记，持续更新。
 
 ##### 前端
 
@@ -18,21 +18,17 @@
 - Flask 
 - Django 2.0.5
 - Centos 7
-- MySQL 8
+- MySQL
 - redis
 - MongoDB
 - Scrapy
 - Docker
 
-##### 大数据
+##### 大数据（了解）
 
 - Hadoop 2.6.5
-- ZooKeeper
-- Yarn
 - MapReduce
-- Flume
 - Hive 1.2.1
 - HBase 0.98
-- Sqoop
 - Kafka 2.10
 
