@@ -23,6 +23,8 @@ init_connect='SET NAMES utf8mb4'
 
 
 
+
+
 设置客户端编码
 
 进入MySQL  执行  set names utf8mb4
