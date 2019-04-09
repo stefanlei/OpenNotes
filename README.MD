@@ -1,34 +1,13 @@
-#### 笔记 
+#### OpenNotes
 
-> 自己整理、总结的笔记，包含大数据，爬虫，人工智能，持续更新。
+---
 
-##### 前端
+> 自己整理、总结的开源笔记，主要包含大数据、前端、后端，以及 Python 语言架构。
 
-- JavaScript
-- JQuery
-- Bootstrap
-- CSS3
-- HTML5
-- Vue.js
-- Element UI
+这是从 2018年7月8日开始整理的笔记，那时候我刚大学毕业，担心以前学的知识忘了，所以从那时候起就每天归纳整理一点，到现在已经有8个月了。
 
-##### 后端
+才疏学浅难免有不正确的地方，还请大家指出，欢迎共同完善。
 
-- Python  3.6 
-- Flask 
-- Django 2.0.5
-- Centos 7
-- MySQL
-- redis
-- MongoDB
-- Scrapy
-- Docker
+##### 联系我
 
-##### 大数据（了解）
-
-- Hadoop 2.6.5
-- MapReduce
-- Hive 1.2.1
-- HBase 0.98
-- Kafka 2.10
-
+Email : stefanlei@qq.com
