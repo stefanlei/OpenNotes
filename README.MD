@@ -4,6 +4,8 @@
 
 > 自己整理、总结的开源笔记，主要包含大数据、前端、后端，以及 Python 语言架构。
 
+个人博客 [https://mageia.cn](https://mageia.cn)
+
 ##### 前端
 
 - JavaScript
