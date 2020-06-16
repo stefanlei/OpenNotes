@@ -34,10 +34,15 @@ Realm 并不是对 Core Data 的简单封装，相反地， Realm 并不是基�
 // 数据类文件
 
 import RealmSwift
-// 继承 Object 是必须的，同时 @objc 和 dynamic 也是必须的，也需要设置初始值
+// 继承 Object 是必须的，同时 @objc 和 dynamic 也是必须的
 class User: Object{
     @objc dynamic var name: String = ""
     @objc dynamic var age: Int = 0
+}
+
+class User: Object{
+    @objc dynamic var name: String?
+    @objc dynamic var age: Int?
 }
 ```
 
