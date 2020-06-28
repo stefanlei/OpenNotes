@@ -65,3 +65,70 @@ struct TextView: UIViewRepresentable {
 
 
 
+```swift
+// 使用 ImagePicker 图片选择器
+
+import Foundation
+import SwiftUI
+import UIKit
+
+
+
+struct ImagePickerView: UIViewControllerRepresentable {
+    
+    
+    var sourceType: UIImagePickerController.SourceType = .camera
+    
+    @Binding var image: UIImage?
+    @Binding var isShown: Bool
+    
+    
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = self.sourceType
+        imagePicker.delegate = context.coordinator
+        // 设置是否允许编辑
+        imagePicker.allowsEditing = true
+        return imagePicker
+    }
+    
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(image: self.$image, isShown: self.$isShown)
+    }
+    
+    // UI 更新时候的回调，基本不操作这个，都是操作代理
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
+        print(11111)
+    }
+    
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+        
+        @Binding var image: UIImage?
+        @Binding var isShown: Bool
+        
+        init(image: Binding<UIImage?>, isShown: Binding<Bool>) {
+            self._image = image
+            self._isShown = isShown
+        }
+        
+        
+        // 选中图片的回调 需要把当前 sheet 关闭，所以 isShown 设置为 false
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            
+            // 因为启用了可以编辑所以这里使用了 editedImage
+            if let uiImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
+                self.image = uiImage
+                self.isShown = false
+            }
+        }
+        
+        // 取消按钮的回调 需要把当前 sheet 关闭，所以 isShown 设置为 false
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            self.isShown = false
+        }
+    }
+}
+
+```
+
