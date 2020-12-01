@@ -2,7 +2,7 @@
 
 ---
 
-> 自己整理、总结的开源笔记，主要包含大数据、前端、后端，以及 Python 语言架构。
+> 自己整理、总结的开源笔记，主要包含大数据、前端、后端，以及 Python、C++、Rust 语言架构。
 
 个人博客 [https://mageia.cn](https://mageia.cn)
 
@@ -19,13 +19,12 @@
 ##### 后端
 
 - Python  3.6 
-- Flask 
-- Django 2.0.5
+- C++ 11
+- Rust 2018
 - Centos 7
 - MySQL
 - redis
 - MongoDB
-- Scrapy
 - Docker
 
 ##### 大数据
@@ -42,3 +41,7 @@
 - 猴子补丁
 - Cython
 - Pythonic
+- 泛型
+- 模版
+- 生命周期
+- 所有权
