@@ -67,6 +67,8 @@ g++ main.cpp hello.cpp -o main
 
 1. `g++ main.cpp libhello.a -o main` 
 
+**使用静态库后，main 内部包含了所有需要的文件，main 可以在任意目录下执行**
+
 ---
 
 
@@ -85,5 +87,11 @@ g++ main.cpp hello.cpp -o main
 
 1. `g++ main.cpp -L. -lhello -o main`
 
+   或者 `g++ main.cpp libhello.so -o main` 给库的完整路径
+
 `-L. `标记告诉 g++ 函数库可能位于当前目录，使用`-lhello`标记来告诉 g++ 驱动程序在连接阶段引用共享函数库 `hello.so`
+
+
+
+**使用动态库后，main 依赖于动态库的位置，所有需要保证动态库，存在于上面指定的路径中**
 
