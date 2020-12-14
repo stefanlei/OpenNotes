@@ -8,6 +8,8 @@ cmake_minimum_required(VERSION 3.8)
 # 项目名称
 project(Test)
 
+# 添加编译器参数
+set(CMAKE_CXX_FLAGS "-v")
 
 # set 是定义变量 这里是定义 C++ 版本
 set(CMAKE_CXX_STANDARD 11)
