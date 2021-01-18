@@ -89,7 +89,7 @@ g++ main.cpp hello.cpp -o main
 
    或者 `g++ main.cpp libhello.so -o main` 给库的完整路径
 
-`-L. `标记告诉 g++ 函数库可能位于当前目录，使用`-lhello`标记来告诉 g++ 驱动程序在连接阶段引用共享函数库 `hello.so`
+`-L. `标记告诉 g++ 动态库库位于当前目录，使用`-lhello`标记来告诉 g++ 驱动程序在连接阶段引用共享函数库 `hello.so`
 
 
 

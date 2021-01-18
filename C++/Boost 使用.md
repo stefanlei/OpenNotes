@@ -1,61 +1,114 @@
-#### Boost 基本使用
+##### Boost 基本使用
 
-```c++
-#include <boost/regex.hpp>
+```she
+tree 
+
+.
+├── Jamroot.jam
+├── include
+│   └── hello.h
+├── main.cpp
+└── source
+    └── hello.cpp
+```
+
+`hello.cpp`
+
+```cpp
 #include <iostream>
-#include <string>
-
-int main()
-{
-    std::string line;
-    boost::regex pat( "^Subject: (Re: |Aw: )*(.*)" );
-
-    while (std::cin)
-    {
-        std::getline(std::cin, line);
-        boost::smatch matches;
-        if (boost::regex_match(line, matches, pat))
-            std::cout << matches[2] << std::endl;
-    }
+void sayHello(){
+    std::cout << "Hello" << std::endl;
 }
 ```
 
-```tex
+`main.cpp`
+
+```cpp
+#include <iostream>
+#include <string>
+#include <hello.h>
+
+int main()
+{
+    sayHello();
+}
+```
+
+```jamroot
 
 # 定义变量
 local BOOST_ROOT = "/usr/local/Cellar/boost/1.74.0" ;
-
 # 打印消息
 ECHO "Boost path is: " $(BOOST_ROOT) ;
 
+# 也可以用 project，也可以指定 <include>
+# project      
+#    : requirements
+#      <include>./include
+#    ;
 
-
-# 目前没有发现有什么作用，删除也没有错误。
-project
-    : requirements 
-      <include>$(BOOST_ROOT)
+# 生成一个动态库 指定库名和所依赖的 cpp
+lib sayHello
+    : ./source/hello.cpp
     ;
 
-
-
-# 添加依赖的库和头文件 boost_dy_lib 相当于是定义的变量 后面会用到
-lib boost_dy_lib
-    :
-    : <file>$(BOOST_ROOT)/lib/libboost_regex.a
-      <file>$(BOOST_ROOT)/lib/libboost_regex.a  # 如果有多个就这样写
-    :
-    : <include>$(BOOST_ROOT)/include
-      <include>$(BOOST_ROOT)/include            # 如果有多个就这样写
-    ;
-
-
-
-# 生成的可执行文件名称，后面是主文件和依赖库集合 boost_dy_lib 是上面定义的。
-exe main
-    : main.cpp
-      boost_dy_lib
+# 生成一个可执行文件，指定依赖的头文件和 cpp
+exe test
+    : ./source/hello.cpp main.cpp
+    : <include>./include
     ;
 ```
 
+---
 
+##### 使用 project 来管理
+
+```cpp
+tree 
+  
+.
+├── Jamroot
+├── application
+│   ├── app1
+│   │   ├── Jamfile.v2
+│   │   ├── include
+│   │   └── source
+│   │       └── hi.cpp
+│   └── app2
+│       ├── Jamfile.v2
+│       ├── include
+│       │   └── hello.h
+│       └── source
+│           └── hello.cpp
+└── main.cpp
+```
+
+`app1/Jamfile.v2`
+
+```cpp
+
+project
+    : requirements
+      <include>./include
+    ;
+
+lib hi
+    : ./source/hi.cpp
+    ;
+```
+
+`app2/Jamfile.v2`
+
+```cpp
+project
+    : requirements
+      <include>./include
+    ;
+
+lib hello
+    : ./source/hello.cpp
+    ;
+```
+
+`Jamroot`
 

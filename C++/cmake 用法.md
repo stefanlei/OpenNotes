@@ -72,5 +72,34 @@ aux_source_directory(. DIR_LIB_SRCS)
 
 # 这里定义的 SayHello ，会在主文件中用到。
 add_library(SayHello ${DIR_LIB_SRCS})
+
+# 添加头文件搜索目录
+# 它相当于g++选项中的-I参数的作用，也相当于环境变量中增加路径到CPLUS_INCLUDE_PATH变量的作用。
+# include_directories(../../../thirdparty/comm/include)
+include_directories(include)
+
+# 添加需要链接的库文件目录
+# 它相当于g++命令的-L选项的作用，也相当于环境变量中增加LD_LIBRARY_PATH的路径的作用。
+# link_directories("/home/server/third/lib")
+link_directories(directory1 directory2 ...)
+
+# 添加库，直接是全路径
+link_libraries(“/home/server/third/lib/libcommon.a”)
+# 下面的例子，只有库名，cmake 会自动去所包含的目录搜索，这个目录是上面指定的
+link_libraries(common)
+
+# 传入变量
+link_libraries(${RUNTIME_LIB})
+# 也可以链接多个
+link_libraries("/opt/libeng.so"　"/opt/libmx.so")
+
+```
+
+##### 指定编译器参数
+
+```cmake
+# 这样写，可以在原有的 CMAKE_CXX_FLAGS 的基础上添加，而不是覆盖
+# 版本也可以在这里指定
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -v -std=c++11")
 ```
 
