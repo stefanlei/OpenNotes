@@ -23,6 +23,14 @@ aux_source_directory(. DIR_SRCS)
 add_executable(test ${DIR_SRCS})
 
 
+
+# 递归选择目录下的 cpp
+set(SOURCE_LIST)
+file(GLOB_RECURSE SOURCE_LIST ./source/*.cpp)
+
+add_executable(test ${SOURCE_LIST})
+
+
 ```
 
 ---
@@ -53,6 +61,12 @@ set (Test_VERSION_MINOR 0)
 aux_source_directory(. DIR_SRCS)
 # 指定生成目标 test 是生成的可执行文件的名称
 add_executable(test ${DIR_SRCS})
+
+
+# 或者使用递归查找所有源文件，并保存到 source_list
+set(source_list)
+file(GLOB_RECURSE source_list ./source/*.cpp)
+add_executable(test ${source_list})
 
 
 # 添加链接库, test 是项目名称， SayHello 是链接库的名称，这个名称需要在其他目录的 CMakeLists.txt 里面定义
