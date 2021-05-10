@@ -1,0 +1,154 @@
+#### 基于 select + ThreadPool 的服务器
+
+`server.py`
+
+```python
+import select
+import socket
+import queue
+import ThreadPool
+import time
+
+host = "127.0.0.1"
+port = 1111
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server.setblocking(False)
+server.bind((host, port))
+server.listen(2048)
+
+print(f'开始监听 {host}:{port}')
+
+read = [server, ]
+write = []
+
+message_queue = {}
+
+pool = ThreadPool.ThreadPool(4)
+
+
+def handle(client, msg):
+    response = b"HTTP/1.1 200 OK\r\n\r\n" + next_msg
+    client.send(response)
+
+
+while True:
+    print("等待下一次循环...")
+    readable, writeable, exceptionable = select.select(read, write, read)
+    for s in readable:
+        if s is server:
+            stream, client_addr = s.accept()
+            print(f"新的连接: {client_addr}")
+            stream.setblocking(0)
+            read.append(stream)
+            message_queue[stream] = queue.Queue()
+        else:
+            try:
+                data = s.recv(1024)
+            except ConnectionResetError:
+                print(f"客户端主动断开连接 RST {client_addr}")
+                if s in write:
+                    write.remove(s)
+                read.remove(s)
+                s.close()
+                del message_queue[s]
+            else:
+                if data:
+                    print(f"收到消息 {data} 来自 {s.getpeername()}")
+                    message_queue[s].put(data)
+                    if s not in write:
+                        write.append(s)
+                else:
+                    print(f"数据为空，关闭客户端: {client_addr}")
+                    if s in write:
+                        write.remove(s)
+                    read.remove(s)
+                    s.close()
+                    del message_queue[s]
+
+    for s in writeable:
+        try:
+            next_msg = message_queue.get(s).get_nowait()
+        except queue.Empty:
+            print(f"消息队列为空 {client_addr}")
+            write.remove(s)
+        else:
+
+            # 如果是短连接，那么用完就可以立马断开
+            if s in write:
+                write.remove(s)
+            if s in read:
+                read.remove(s)
+
+            # 不使用线程池
+            # response = b"HTTP/1.1 200 OK\r\n\r\n" + next_msg
+            # s.send(response)
+
+            # 使用线程池
+            pool.execute(target=handle, args=(s, next_msg))
+
+            # 不需要的话，就断开连接，更具业务需求
+            s.close()
+            del message_queue[s]
+
+    for s in exceptionable:
+        print(f"发生异常: {s.getpeername()}")
+        if s in read:
+            read.remove(s)
+        if s in write:
+            write.remove(s)
+        s.close()
+
+        del message_queue[s]
+
+```
+
+`ThreadPool`
+
+```python
+import threading
+import queue
+
+
+class Worker:
+
+    def __init__(self, idx, my_queue: queue.Queue):
+        self.idx = idx
+        self.queue = my_queue
+
+        t = threading.Thread(target=self.handler)
+        t.start()
+
+    def handler(self, ):
+        print(f"Worker {self.idx} starting...", )
+        while True:
+            job = self.queue.get()
+            # print(f"Worker {self.idx} got a job; executing.", )
+            job.execute()
+
+
+class Job:
+
+    def __init__(self, target, args=()):
+        self.func = target
+        self.args = args
+
+    def execute(self):
+        self.func(*self.args)
+
+
+class ThreadPool:
+
+    def __init__(self, size):
+        self.workers = []
+        self.queue = queue.Queue()
+
+        for idx in range(0, size):
+            self.workers.append(Worker(idx, self.queue))
+
+    def execute(self, target, args=(), ):
+        self.queue.put_nowait(Job(target, args))
+
+```
+
