@@ -81,14 +81,10 @@ while True:
             if s in read:
                 read.remove(s)
 
-            # 不使用线程池
-            # response = b"HTTP/1.1 200 OK\r\n\r\n" + next_msg
-            # s.send(response)
-
             # 使用线程池
             pool.execute(target=handle, args=(s, next_msg))
 
-            # 不需要的话，就断开连接，更具业务需求
+            # 不需要的话，就断开连接，根据业务需求
             s.close()
             del message_queue[s]
 
