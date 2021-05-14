@@ -70,20 +70,19 @@ while True:
             print(f"消息队列为空 {client_addr}")
             write.remove(s)
         else:
-            # 如果是短连接，那么用完就可以立马断开
-            if s in write:
-                write.remove(s)
-            if s in read:
-                read.remove(s)
 
             # 发送消息
             s.send(next_msg)
 
+            # 如果是短连接，那么用完就可以立马断开
+            # if s in write:
+            #     write.remove(s)
+            # if s in read:
+            #     read.remove(s)
+
             # 不需要的话，就断开连接，根据业务需求
-            s.close()
-            del message_queue[s]
-
-
+            # s.close()
+            # del message_queue[s]
 
     for s in exceptionable:
         print(f"发生异常: {s.getpeername()}")

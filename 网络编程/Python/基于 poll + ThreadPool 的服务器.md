@@ -1,9 +1,12 @@
-#### 基于 poll 的服务器
+#### 基于 poll + ThreadPool 的服务器
+
+`server.py`
 
 ```python
 import select
 import socket
 import queue
+import ThreadPool
 
 host = "127.0.0.1"
 port = 1111
@@ -37,6 +40,8 @@ poller.register(server, READ)
 fd_to_socket = {
     server.fileno(): server,
 }
+
+pool = ThreadPool.ThreadPool(4)
 
 
 def handle(client, msg):
@@ -109,7 +114,7 @@ while True:
             else:
                 # 这里就可以发送业务数据了
                 print(f"发送消息 {next_msg} 给 {s.getpeername()}")
-                handle(s,next_msg)
+                pool.execute(target=handle, args=(s, next_msg))
 
         # 发送错误，停止监听
         elif flag & select.POLLERR:
@@ -119,4 +124,3 @@ while True:
             del message_queue[s]
 
 ```
-
