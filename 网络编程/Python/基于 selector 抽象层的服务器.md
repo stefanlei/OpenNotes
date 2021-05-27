@@ -1,9 +1,13 @@
 #### 基于 selector 抽象层的服务器
 
+**使用默认选择器 DefaultSelector**
+
 ```python
 import socket
 import selectors
 
+# 默认选择器会选择，当前平台最优的方式
+# my_sel = selectors.PollSelector()
 my_sel = selectors.DefaultSelector()
 keep_running = True
 
@@ -42,6 +46,8 @@ server.listen(5)
 
 print(f"Listen on {server_address}")
 
+# register 的函数签名 register(fileobj, events, data) -> SelectorKey
+# 我们可以向 data 参数，传入我们的回调函数
 my_sel.register(server, selectors.EVENT_READ, accept)
 
 while keep_running:
