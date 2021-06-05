@@ -11,6 +11,8 @@ use std::thread;
 use std::rc::Rc;
 
 fn main() {
+  
+  	// 要配合锁使用 Mutex
     let counter = Arc::new(Mutex::new(0));
 
     let mut handles = vec![];
