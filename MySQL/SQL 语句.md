@@ -1,4 +1,68 @@
+#### SQL 语句
+
+##### insert 插入
+
+*如果可以相互转换的数字和字符串会自动转换*
+
+```mysql
+# 这个方式可以自己指定值  推荐这个写法
+insert into table_name (字段，字段) values (值，值)  
+# 这种方式默认要添加所有的字段值
+insert into table_name values (值，值，值，值)    
+
+```
+
+*批量插入*
+
+```mysql
+# 后面接多个 values ，注意主键不能重复
+insert into dept (deptno,dname,loc) values(1,'stefa','aa'),values(2,'stefa','aa'),values(3,'stefa','aa'),values(4,'stefa','aa')
+```
+
+---
+
+
+
+##### update 更新
+
+```mysql
+# update table_name set column=value where ......
+update emp set deptno=1111 where deptno=1000;
+```
+
+*更新多个字段*
+
+```mysql
+update emp set job='job',sal = sal + 1000 where deptno=1111 
+```
+
+---
+
+
+
+##### delete 删除
+
+*物理删除*
+
+```mysql
+delete from emp where ename = 'stefan'
+```
+
+*逻辑删除*  
+
+自己设置一个特定的字段  用来标识  1表示存在 0表示不存在。没有真正的删除
+
+```mysql
+select * from emp where is_vaild = 1
+update emp set is_vaild = 0 where is_vaild = 1;
+```
+
+
+
+---
+
 #### select  查询语法
+
 ##### 基础查询
 
 ```mysql
@@ -292,7 +356,7 @@ order by 字段列表 asc | desc
 3.  group by
 4.  having 
 5.  select 
-6. order by
+6.  order by
 
 ##### 多表查询
 
@@ -313,19 +377,13 @@ select ename, dname from emp, dept;
 - 等值连接 
 
 ```mysql
-# 查询 用户名以及用户所在部门名
-select ename, dname from emp,dept where emp.deptno = dept.deptno;
+# 查询 用户名以及用户所在部门名select ename, dname from emp,dept where emp.deptno = dept.deptno;
 ```
 
 - 非等值连接
 
 ```mysql
-# 查询员工姓名，工资及等级
-# 900  属于哪个等级 
-select grade from salgrade where 900 between losal and hisal;
-
-# 查询员工名称，工资和等级
-select ename, sal, grade from emp, salgrade where sal between losal and hisal;
+# 查询员工姓名，工资及等级# 900  属于哪个等级 select grade from salgrade where 900 between losal and hisal;# 查询员工名称，工资和等级select ename, sal, grade from emp, salgrade where sal between losal and hisal;
 ```
 
 - 自连接 (特殊的等值连接  来源于同一张表)
@@ -363,6 +421,8 @@ select ename,dname,emp.deptno, dept.deptno from emp  left join dept on emp.deptn
 ```mysql
 select ename,dname,emp.deptno, dept.deptno from emp  right join dept on emp.deptno=dept.deptno;
 ```
+
+
 
 
 
