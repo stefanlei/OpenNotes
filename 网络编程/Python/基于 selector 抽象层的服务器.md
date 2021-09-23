@@ -47,7 +47,7 @@ server.listen(5)
 print(f"Listen on {server_address}")
 
 # register 的函数签名 register(fileobj, events, data) -> SelectorKey
-# 我们可以向 data 参数，传入我们的回调函数
+# 我们可以向 data 传递参数，比如传入我们的回调函数，也可以传递其他数据，不一定是函数。
 my_sel.register(server, selectors.EVENT_READ, accept)
 
 while keep_running:
