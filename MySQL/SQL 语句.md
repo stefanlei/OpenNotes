@@ -26,7 +26,7 @@ insert into dept (deptno,dname,loc) values(1,'stefa','aa'),values(2,'stefa','aa'
 ##### update 更新
 
 ```mysql
-# update table_name set column=value where ......
+# update table_name set column1 = value1, column2 = value2 where ......
 update emp set deptno=1111 where deptno=1000;
 ```
 
