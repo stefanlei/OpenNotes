@@ -2,6 +2,15 @@
 
 ---
 
+
+
+#### 打包流程
+
+1. 新建 Dockerfile 文件
+2. dokcer build -t dokcername ./ 
+
+
+
 ##### FROM 指定一个基础镜像，必须为第一个命令
 
 ```sh
